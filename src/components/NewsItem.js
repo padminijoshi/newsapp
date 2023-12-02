@@ -6,7 +6,7 @@ export class NewsItem extends Component {
     let {title,description,imageUrl,newsUrl}=this.props;
     return (
       <div className="my-3">
-        <div className="card" style={{width: "18rem"}}>
+        <div className="card">
         <img src={!imageUrl?"https://assets.bwbx.io/images/users/iqjWHBFdfxIU/iIrrdMVnaO4M/v0/1200x824.jpg":imageUrl}
         className="card-img-top" alt="..."/>
         <div className="card-body">
