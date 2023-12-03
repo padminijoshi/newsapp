@@ -17,16 +17,20 @@ export class News extends Component {
     category: PropTypes.string,
   }
 
-  
-  constructor(){
-    super();
-    
-    this.state= {
-      articles:[],
-      loading:false,
-      page:1
-    }
+  capitalizeFirstLetter = (string)=> {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }  
+  constructor(props) {
+    super(props);
+    this.state = {
+        articles: [],
+        loading: false,
+        page:1
+        
+      }
+    document.title = `${this.capitalizeFirstLetter(this.props.category)} - NewsMonkey`;
   }
+
   async componentDidMount(){
    
     let url=`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=1f6ad8b5b03c40ba8e058d010885acc4&page=1&pageSize=${this.props.pageSize}`;
@@ -71,13 +75,14 @@ export class News extends Component {
   render() {
     return (
       <div className="container my-3">
-        <h1 className="text-center">NewsMonkey - Top Headlines</h1>
+        <h1 className="text-center">NewsMonkey - Top {this.capitalizeFirstLetter(this.props.category)} Headlines</h1>
         {this.state.loading&&<Spinner/>}
         <div className="row">
         {!this.state.loading&&this.state.articles.map((element)=>{
             return <div className="col-md-4" key={element.url}>
               <NewsItem title={element.title?element.title:""} 
-              description={element.description?element.description:""} imageUrl={element.urlToImage} newsUrl={element.url}/>
+              description={element.description?element.description:""} imageUrl={element.urlToImage} newsUrl={element.url} 
+              author={element.author} date={element.publishedAt} source={element.source.name}/>
               </div> 
         })} 
         </div> 
